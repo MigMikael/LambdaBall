@@ -46,8 +46,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/buttonStart">
+        android:layout_below="@+id/buttonStart"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,18 +59,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/buttonStart"
-                android:textSize="30sp"
-                android:text="G:" />
+                android:text="G:"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txtGvalue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/buttonStart"
-                android:textSize="30sp"
                 android:text="00.00"
+                android:textAlignment="center"
                 android:textColor="#ff0000"
-                android:textAlignment="center" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -84,18 +84,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtG"
-                android:textSize="30sp"
-                android:text="A:" />
+                android:text="A:"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txtAvalue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtG"
-                android:textSize="30sp"
                 android:text="00.00"
+                android:textAlignment="center"
                 android:textColor="#ff0000"
-                android:textAlignment="center" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -110,18 +110,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtA"
-                android:textSize="30sp"
-                android:text="M:" />
+                android:text="M:"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txtMvalue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtA"
-                android:textSize="30sp"
                 android:text="00.00"
+                android:textAlignment="center"
                 android:textColor="#ff0000"
-                android:textAlignment="center" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -135,20 +135,73 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtM"
-                android:textSize="30sp"
-                android:text="B:" />
+                android:text="B:"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txtBvalue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtM"
-                android:textSize="30sp"
                 android:text="00.00"
+                android:textAlignment="center"
                 android:textColor="#ff0000"
-                android:textAlignment="center" />
+                android:textSize="30sp" />
 
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtArduino"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonGround"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ground" />
+
+            <TextView
+                android:id="@+id/txtGround"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="00.00"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonGround"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonHead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head" />
+
+            <TextView
+                android:id="@+id/txtHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="00.00"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

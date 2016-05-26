@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,18 +23,16 @@ public class ShowDataActivity extends AppCompatActivity {
 
     private static final String TAG = "ShowDataActivity";
 
-    Button startButton, exitButton;
+    Button startButton, exitButton, groundButton, headButton;
     TextView txtArduino, txtConnectStatus;
-    TextView txtGvalue, txtAvalue, txtMvalue, txtBvalue;
+    TextView txtGvalue, txtAvalue, txtMvalue, txtBvalue, txtGround, txtHead;
     Handler bluetoothIn;
 
     final int handlerState = 0;                        //used to identify handler message
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
-    private StringBuilder recDataString = new StringBuilder();
 
     private ConnectedThread mConnectedThread;
-    private BluetoothData mBluetoothData;
 
     // SPP UUID service - this should work for most devices
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -59,7 +56,10 @@ public class ShowDataActivity extends AppCompatActivity {
         txtMvalue = (TextView) findViewById(R.id.txtMvalue);
         txtBvalue = (TextView) findViewById(R.id.txtBvalue);
 
-        mBluetoothData = new BluetoothData();
+        groundButton = (Button) findViewById(R.id.buttonGround);
+        headButton = (Button) findViewById(R.id.buttonHead);
+        txtHead = (TextView) findViewById(R.id.txtHead);
+        txtGround = (TextView) findViewById(R.id.txtGround);
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -87,14 +87,35 @@ public class ShowDataActivity extends AppCompatActivity {
         checkBTState();
 
         startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
 
             }
         });
 
         exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                finish();
+                try {
+                    btSocket.close();
+                    Log.d(TAG, "...close Socket ok...");
+                } catch (IOException e2) {
+                    //insert code to deal with this
+                }
+            }
+        });
+
+        groundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtGround.setText(txtBvalue.getText());
+            }
+        });
+
+        headButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtHead.setText(txtBvalue.getText());
             }
         });
     }
@@ -112,9 +133,7 @@ public class ShowDataActivity extends AppCompatActivity {
     }
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
-
         return device.createRfcommSocketToServiceRecord(BTMODULEUUID);
-        //creates secure outgoing connection with BT device using UUID
     }
 
     @Override
