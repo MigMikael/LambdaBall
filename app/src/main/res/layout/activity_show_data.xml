@@ -1,53 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/txtConnectStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Connected"
-        android:textColor="#4CAF50"
+        android:textColor="@color/colorText"
         android:textSize="20sp"
+        android:textAlignment="center"
         android:visibility="invisible" />
-
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Start" />
-
-    <Button
-        android:id="@+id/buttonExit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="Exit" />
 
     <TextView
         android:id="@+id/txtArduino"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="txtArduino"
+        android:text="0"
         android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="220sp"
+        android:textColor="@color/colorText"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtArduino"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonGround"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonHead"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:textSize="30sp"
+                android:backgroundTint="@color/colorButton"
+                android:text="Head" />
+
+            <TextView
+                android:id="@+id/txtHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="B,00.00"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorText"
+                android:textSize="45sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonStart"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/buttonStart"
                 android:text="G:"
+                android:textColor="#ffffff"
                 android:textSize="30sp" />
 
             <TextView
@@ -80,6 +107,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:textColor="@color/colorText"
                 android:id="@+id/txtA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtA"
                 android:text="M:"
+                android:textColor="@color/colorText"
                 android:textSize="30sp" />
 
             <TextView
@@ -136,7 +165,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtM"
                 android:text="B:"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textColor="@color/colorText"/>
 
             <TextView
                 android:id="@+id/txtBvalue"
@@ -154,54 +184,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtArduino"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonGround"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ground" />
-
-            <TextView
-                android:id="@+id/txtGround"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="00.00"
-                android:textAlignment="center"
-                android:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonGround"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonHead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Head" />
-
-            <TextView
-                android:id="@+id/txtHead"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="00.00"
-                android:textAlignment="center"
-                android:textSize="30sp" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/buttonExit"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/colorButton"
+            android:layout_height="80dp"
+            android:textSize="40sp"
+            android:layout_weight="1"
+            android:text="Exit" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

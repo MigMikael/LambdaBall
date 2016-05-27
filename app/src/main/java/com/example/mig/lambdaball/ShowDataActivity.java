@@ -22,10 +22,9 @@ import java.util.UUID;
 public class ShowDataActivity extends AppCompatActivity {
 
     private static final String TAG = "ShowDataActivity";
-
-    Button startButton, exitButton, groundButton, headButton;
+    Button exitButton, groundButton, headButton;
     TextView txtArduino, txtConnectStatus;
-    TextView txtGvalue, txtAvalue, txtMvalue, txtBvalue, txtGround, txtHead;
+    TextView txtGvalue, txtAvalue, txtMvalue, txtBvalue, txtHead;
     Handler bluetoothIn;
 
     final int handlerState = 0;                        //used to identify handler message
@@ -42,6 +41,8 @@ public class ShowDataActivity extends AppCompatActivity {
 
     String value = "";
 
+    int countOverHead = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,6 @@ public class ShowDataActivity extends AppCompatActivity {
 
         txtConnectStatus = (TextView) findViewById(R.id.txtConnectStatus);
         txtArduino = (TextView) findViewById(R.id.txtArduino);
-        startButton = (Button) findViewById(R.id.buttonStart);
         exitButton = (Button) findViewById(R.id.buttonExit);
         txtGvalue = (TextView) findViewById(R.id.txtGvalue);
         txtAvalue = (TextView) findViewById(R.id.txtAvalue);
@@ -59,7 +59,6 @@ public class ShowDataActivity extends AppCompatActivity {
         groundButton = (Button) findViewById(R.id.buttonGround);
         headButton = (Button) findViewById(R.id.buttonHead);
         txtHead = (TextView) findViewById(R.id.txtHead);
-        txtGround = (TextView) findViewById(R.id.txtGround);
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -71,7 +70,6 @@ public class ShowDataActivity extends AppCompatActivity {
                             value = "";
                             Log.d(TAG, "... Start Package ...");
                         } else if (readMessage.charAt(i) == '}') {
-                            txtArduino.setText(value);
                             updateView(value);
                             Log.d(TAG, value);
                             Log.d(TAG, "... end Package ...");
@@ -86,13 +84,6 @@ public class ShowDataActivity extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         checkBTState();
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,20 +96,15 @@ public class ShowDataActivity extends AppCompatActivity {
             }
         });
 
-        groundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtGround.setText(txtBvalue.getText());
-            }
-        });
-
         headButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtHead.setText(txtBvalue.getText());
+                countOverHead = 0;
             }
         });
     }
+    static double count = 0;
 
     public void updateView(String value) {
         int indexG = 0;
@@ -130,6 +116,26 @@ public class ShowDataActivity extends AppCompatActivity {
         txtAvalue.setText(value.substring(indexA, indexM));
         txtMvalue.setText(value.substring(indexM, indexB));
         txtBvalue.setText(value.substring(indexB, value.length()));
+
+        String a[] = txtAvalue.getText().toString().split(",");
+        double a1 = Double.parseDouble(a[1]);
+        a1 = Math.abs(a1);
+        double a2 = Double.parseDouble(a[2]);
+        a2 = Math.abs(a2);
+        double a3 = Double.parseDouble(a[3]);
+        a3 = Math.abs(a3);
+
+        Log.d(TAG, "a1 = "+ String.valueOf(a1) + " a2 = " + String.valueOf(a2) + " a3 = " + String.valueOf(a3));
+
+        double headHeight = Double.parseDouble(txtHead.getText().toString().replace("B,", ""));
+        double ballHeight = Double.parseDouble(txtBvalue.getText().toString().replace("B,", ""));
+        if(ballHeight > headHeight && a1 < 0.8&& a2 < 0.8&& a3 < 0.8){
+            count ++;
+        }else if(count > 0){
+            countOverHead ++;
+            count = 0;
+        }
+        txtArduino.setText(String.valueOf(countOverHead));
     }
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
